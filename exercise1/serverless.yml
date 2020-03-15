@@ -1,0 +1,44 @@
+org: yschwarenthorer
+app: sf-exercise1-app
+service: sf-exercise1
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  profile: yannickPrivat
+  region: eu-central-1
+
+functions:
+
+  getCustomer:
+    handler: src/lambda/customer-lambda.getAll
+    events:
+      - http:
+          path: customer
+          method: get
+
+  createCustomer:
+    handler: src/lambda/customer-lambda.create
+    events:
+      - http:
+          path: customer
+          method: post
+
+  createTransaction:
+    handler: src/lambda/transaction-lambda.create
+    events:
+      - http:
+          path: transaction
+          method: post
+
+  report:
+    handler: src/lambda/report-lambda.report
+    events:
+      - http:
+          path: report
+          method: get
